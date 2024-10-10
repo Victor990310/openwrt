@@ -17,7 +17,7 @@ on:
   workflow_dispatch:
 
 env:
-  REPO_URL: https://github.com/coolsnowwolf/lede
+  REPO_URL: https://github.com/immortalwrt/immortalwrt
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: .config
@@ -149,6 +149,13 @@ jobs:
       with:
         retain_days: 0
         keep_minimum_runs: 2
+
+    - name: Package Armvirt as OpenWrt
+      uses: unifreq/openwrt_packit@master
+      env:
+        OPENWRT_ARMVIRT: openwrt/bin/targets/*/*/*.tar.gz
+      PACKAGE_SOC: s905d_s905x3_beikeyun
+      KERNEL_VERSION_NAME: 5.13.2_5.4.132
 
     - name: Remove old Releases
       uses: dev-drprasad/delete-older-releases@master
